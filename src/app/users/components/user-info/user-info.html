@@ -1,0 +1,78 @@
+<section class="user-info">
+  <nz-page-header nzTitle="Профиль пользователя" [nzSubtitle]="user()?.name ?? 'Пользователь'">
+    <nz-page-header-extra>
+      <button nz-button class="profile-action profile-action--secondary" routerLink="/users">К списку</button>
+      @if (user(); as currentUser) {
+      <button nz-button nzType="primary" class="profile-action" [routerLink]="['/users', currentUser.id, 'edit']">
+        Редактировать
+      </button>
+      <button nz-button nzDanger class="profile-action profile-action--danger" type="button"
+        (click)="openDeleteModal()">
+        Удалить
+      </button>
+      }
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  @if (errorMessage()) {
+  <nz-alert nzType="error" [nzMessage]="errorMessage()" nzShowIcon />
+  }
+
+  <nz-spin [nzSpinning]="isLoading()">
+    @if (user(); as currentUser) {
+    <div class="profile-grid">
+      <section class="profile-panel profile-panel--wide">
+        <h2>{{ currentUser.name }}</h2>
+        <p>{{ currentUser.username }}</p>
+      </section>
+      <section class="profile-panel">
+        <h3>Контакты</h3>
+        <nz-descriptions [nzColumn]="1" nzSize="small">
+          <nz-descriptions-item nzTitle="Email">
+            {{ currentUser.email }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Телефон">
+            {{ currentUser.phone }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Сайт">{{ currentUser.website }}</nz-descriptions-item>
+        </nz-descriptions>
+      </section>
+      <section class="profile-panel">
+        <h3>Компания</h3>
+        <nz-descriptions [nzColumn]="1" nzSize="small">
+          <nz-descriptions-item nzTitle="Название">
+            {{ currentUser.company.name }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Фраза">
+            {{ currentUser.company.catchPhrase }}
+          </nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Описание">
+            {{ currentUser.company.bs }}
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </section>
+      <section class="profile-panel profile-panel--wide">
+        <h3>Адрес</h3>
+        <div class="address-line">
+          <span nz-icon nzType="environment" nzTheme="outline"></span>
+          <span>{{ addressLine() }}</span>
+        </div>
+        @if (mapUrl(); as mapSrc) {
+        <iframe class="profile-map" title="Карта адреса пользователя" [src]="mapSrc" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        }
+      </section>
+    </div>
+    }
+  </nz-spin>
+
+  <nz-modal [nzVisible]="isDeleteModalVisible()" nzTitle="Удалить пользователя?" nzClassName="rounded-modal" nzCentered
+    nzOkText="Подтвердить" nzCancelText="Отмена" nzOkDanger [nzOkLoading]="isDeleting()" (nzOnOk)="confirmDelete()"
+    (nzOnCancel)="closeDeleteModal()">
+    <ng-container *nzModalContent>
+      @if (user(); as currentUser) {
+      Пользователь {{ currentUser.name }} будет удалён. Это действие нельзя отменить.
+      }
+    </ng-container>
+  </nz-modal>
+</section>

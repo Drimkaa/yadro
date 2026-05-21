@@ -1,0 +1,72 @@
+.user-editor {
+  width: min(1040px, calc(100% - 32px));
+  margin: 0 auto;
+  padding-bottom: 32px;
+}
+
+.ant-page-header-heading-extra {
+  display: flex;
+  gap: 8px;
+}
+
+.editor-panel {
+  padding: 18px;
+  border: 1px solid #eef0f3;
+  border-radius: 22px;
+  background: #ffffff;
+  margin-bottom: 16px;
+
+  & h3 {
+    margin: 0 0 14px;
+    font-size: 16px;
+  }
+}
+
+
+.editor-row>.ant-form-item {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+
+.editor-form .ant-input {
+  height: 40px;
+  border-color: #d9d9d9;
+  border-radius: 16px;
+  background: #ffffff;
+
+  &:hover,
+  &:focus {
+    border-color: #1677ff;
+  }
+}
+
+
+.editor-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.editor-action {
+  height: 40px;
+  border-radius: 16px;
+  box-shadow: none;
+
+  &--secondary {
+    border-color: #d9d9d9;
+    background: #ffffff;
+
+    &:hover {
+      border-color: #1677ff;
+      color: #1677ff;
+    }
+  }
+}
+
+
+@media (max-width: 720px) {
+  .user-editor {
+    width: min(560px, calc(100% - 24px));
+  }
+}

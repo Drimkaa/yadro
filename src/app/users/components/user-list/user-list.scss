@@ -1,0 +1,321 @@
+.users-page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding-bottom: 32px;
+}
+
+:host ::ng-deep .users-page__create {
+  border-color: #16a34a;
+  height: 40px;
+  border-radius: 16px;
+  background: #16a34a;
+  box-shadow: none;
+  &:hover {
+  border-color: #15803d;
+  background: #15803d;
+}
+}
+
+.filter-form {
+  display: grid;
+  grid-template-areas: 'name email search reset';
+  grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr) auto auto;
+  gap: 12px;
+  width: 100%;
+  max-width: 1040px;
+}
+
+.filter-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 12px;
+  padding: 18px;
+  border: 1px solid #eef0f3;
+  border-radius: 22px;
+  background: #f7f8fa;
+}
+
+.filter-field--name {
+  grid-area: name;
+}
+
+.filter-field--email {
+  grid-area: email;
+}
+
+.filter-action--search {
+  grid-area: search;
+}
+
+.filter-action--reset {
+  grid-area: reset;
+}
+
+:host ::ng-deep .filter-form .ant-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+:host ::ng-deep .filter-form .ant-form-item-label>label {
+  height: 40px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+  width: 40px;
+
+  &::after {
+    display: none;
+  }
+}
+
+:host ::ng-deep .filter-form .ant-input {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  border-color: #d9d9d9;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+:host ::ng-deep .filter-form .ant-input:hover,
+:host ::ng-deep .filter-form .ant-input:focus {
+  border-color: #1677ff;
+}
+
+:host ::ng-deep .filter-form .ant-btn {
+  width: 100%;
+  height: 40px;
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+:host ::ng-deep .filter-form .ant-btn-default {
+  border-color: #d9d9d9;
+  background: #ffffff;
+}
+
+:host ::ng-deep .filter-form .ant-btn-default:hover {
+  border-color: #1677ff;
+  color: #1677ff;
+}
+
+.users-list {
+  margin-bottom: 12px;
+  overflow: hidden;
+  border: 1px solid #eef0f3;
+  border-radius: 22px;
+  background: #ffffff;
+}
+
+.users-list__header {
+  padding: 14px 18px;
+  color: #6b7280;
+  background: #f7f8fa;
+  font-size: 13px;
+}
+
+.users-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 16px 18px;
+  border-bottom: 1px solid #eef0f3;
+  color: #1f2937;
+  cursor: pointer;
+  transition: background-color 160ms ease;
+}
+
+
+.users-list__item:hover {
+  background: #fbfcfd;
+}
+
+
+
+
+.users-list__label {
+  display: none;
+}
+
+.users-list__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.users-pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.users-list__edit {
+  border-color: #d9d9d9;
+  color: #6b7280;
+
+  &:hover {
+    border-color: #1677ff;
+    color: #1677ff;
+  }
+}
+
+:host ::ng-deep .ant-pagination {
+  gap: 6px;
+
+  .ant-pagination-item,
+  .ant-pagination-prev,
+  .ant-pagination-next,
+  .ant-pagination-jump-prev,
+  .ant-pagination-jump-next {
+    border-radius: 999px;
+  }
+
+  .ant-pagination-item {
+    border-color: #d9d9d9;
+    background: #ffffff;
+    &:hover {
+      border-color: #1677ff;
+    }
+    &-active {
+      border-color: #1677ff;
+      background: #1677ff;
+      a {
+        color: #ffffff;
+      }
+    }
+  }
+
+  .ant-pagination-prev .ant-pagination-item-link,
+  .ant-pagination-next .ant-pagination-item-link {
+    border-color: #d9d9d9;
+    border-radius: 999px;
+    background: #ffffff;
+    &:hover {
+      border-color: #1677ff;
+      color: #1677ff;
+    }
+  }
+
+  .ant-select-selector {
+    border-color: #d9d9d9;
+    border-radius: 999px;
+    background: #ffffff;
+    box-shadow: none;
+  }
+
+  .ant-select:hover .ant-select-selector,
+  .ant-select-focused .ant-select-selector {
+    border-color: #1677ff;
+  }
+}
+
+
+@media (max-width: 800px) {
+  .filter-form {
+    grid-template-areas:
+      'name search'
+      'email reset';
+    grid-template-columns: minmax(220px, 1fr) minmax(112px, auto);
+  }
+}
+
+@media (max-width: 767px) {
+
+  .users-list {
+    display: block;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .users-list__header {
+    display: none;
+  }
+
+  .users-list__item {
+    position: relative;
+    margin-bottom: 12px;
+    padding: 16px 58px 16px 18px;
+    border: 1px solid #eef0f3;
+    border-radius: 20px;
+    background: #ffffff;
+    row-gap: 12px;
+  }
+
+  .users-list__field {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .users-list__label {
+    display: inline-flex;
+  }
+
+  .users-list__field--name,
+  .users-list__field--username {
+    display: block;
+  }
+
+
+  .users-list__field--name {
+    color: #111827;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .users-list__actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    flex: none;
+    width: auto;
+    max-width: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .filter-form {
+    grid-template-areas:
+      'name name'
+      'email email'
+      'search reset';
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 575px) {
+  :host ::ng-deep .filter-form .ant-form-item-label>label {
+    height: 20px;
+  }
+
+  :host ::ng-deep .ant-pagination ul>li {
+    margin-right: 6px !important;
+    margin-bottom: 6px !important;
+  }
+}
+
+@media (max-width: 459px) {
+  .users-list__item {
+    padding-right: 20px;
+  }
+
+  .users-list__field {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+}
+
+@media (max-width: 420px) {
+  .users-page {
+    width: min(100% - 20px, 420px);
+  }
+
+  .filter-form {
+    grid-template-areas:
+      'name'
+      'email'
+      'search'
+      'reset';
+    grid-template-columns: 1fr;
+  }
+}

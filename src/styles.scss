@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+.rounded-modal .ant-modal-content {
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.rounded-modal .ant-modal-header {
+  border-radius: 22px 22px 0 0;
+}
+
+.rounded-modal .ant-modal-footer .ant-btn {
+  height: 40px;
+  border-radius: 16px;
+  box-shadow: none;
+}

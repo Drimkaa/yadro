@@ -1,0 +1,175 @@
+<section class="user-editor">
+  <nz-page-header [nzTitle]="isCreateMode() ? 'Создание пользователя' : 'Редактирование пользователя'">
+    <nz-page-header-extra>
+      <button nz-button class="editor-action editor-action--secondary" routerLink="/users">
+        К списку
+      </button>
+      @if (userId(); as id) {
+      <button nz-button class="editor-action editor-action--secondary" [routerLink]="['/users', id]">
+        К деталям
+      </button>
+      }
+    </nz-page-header-extra>
+  </nz-page-header>
+
+  <nz-spin [nzSpinning]="isLoading()">
+    <form nz-form nzLayout="vertical" class="editor-form" [formGroup]="form" (ngSubmit)="submit()">
+      <section class="editor-panel">
+        <h3>Основное</h3>
+
+        <div nz-row [nzGutter]="[16, 0]" class="editor-row">
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="name">Имя</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('name') ? 'error' : ''"
+              [nzErrorTip]="getError('name')">
+              <input nz-input id="name" formControlName="name" placeholder="Leanne Graham" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="username">Username</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('username') ? 'error' : ''"
+              [nzErrorTip]="getError('username')">
+              <input nz-input id="username" formControlName="username" placeholder="Bret" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="email">Email</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('email') ? 'error' : ''"
+              [nzErrorTip]="getError('email')">
+              <input nz-input id="email" type="email" formControlName="email" placeholder="user@example.com" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="phone">Телефон</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('phone') ? 'error' : ''"
+              [nzErrorTip]="getError('phone')">
+              <input nz-input id="phone" formControlName="phone" placeholder="1-770-736-8031" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24">
+            <nz-form-label nzRequired nzFor="website">Сайт</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('website') ? 'error' : ''"
+              [nzErrorTip]="getError('website')">
+              <input nz-input id="website" formControlName="website" placeholder="hildegard.org" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </section>
+
+      <section class="editor-panel" formGroupName="address">
+        <h3>Адрес</h3>
+
+        <div nz-row [nzGutter]="[16, 0]" class="editor-row">
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="city">Город</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('address.city') ? 'error' : ''"
+              [nzErrorTip]="getError('address.city')">
+              <input nz-input id="city" formControlName="city" placeholder="Gwenborough" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="zipcode">Индекс</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('address.zipcode') ? 'error' : ''"
+              [nzErrorTip]="getError('address.zipcode')">
+              <input nz-input id="zipcode" formControlName="zipcode" placeholder="92998-3874" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="street">Улица</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('address.street') ? 'error' : ''"
+              [nzErrorTip]="getError('address.street')">
+              <input nz-input id="street" formControlName="street" placeholder="Kulas Light" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="suite">Помещение</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('address.suite') ? 'error' : ''"
+              [nzErrorTip]="getError('address.suite')">
+              <input nz-input id="suite" formControlName="suite" placeholder="Apt. 556" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-row [nzGutter]="[16, 0]" class="editor-row" formGroupName="geo">
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="lat">Широта</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('address.geo.lat') ? 'error' : ''"
+              [nzErrorTip]="getError('address.geo.lat')">
+              <input nz-input id="lat" formControlName="lat" placeholder="-37.3159" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="lng">Долгота</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('address.geo.lng') ? 'error' : ''"
+              [nzErrorTip]="getError('address.geo.lng')">
+              <input nz-input id="lng" formControlName="lng" placeholder="81.1496" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </section>
+
+      <section class="editor-panel" formGroupName="company">
+        <h3>Компания</h3>
+
+        <div nz-row [nzGutter]="[16, 0]" class="editor-row">
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="companyName">Название</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('company.name') ? 'error' : ''"
+              [nzErrorTip]="getError('company.name')">
+              <input nz-input id="companyName" formControlName="name" placeholder="Romaguera-Crona" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24" [nzMd]="12">
+            <nz-form-label nzRequired nzFor="catchPhrase">Слоган</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('company.catchPhrase') ? 'error' : ''"
+              [nzErrorTip]="getError('company.catchPhrase')">
+              <input nz-input id="catchPhrase" formControlName="catchPhrase" />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col [nzXs]="24">
+            <nz-form-label nzRequired nzFor="bs">Описание</nz-form-label>
+            <nz-form-control [nzValidateStatus]="isInvalid('company.bs') ? 'error' : ''"
+              [nzErrorTip]="getError('company.bs')">
+              <input nz-input id="bs" formControlName="bs" />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </section>
+
+      <div class="editor-footer">
+        <button nz-button type="button" class="editor-action editor-action--secondary" routerLink="/users">
+          Отмена
+        </button>
+        <button nz-button nzType="primary" class="editor-action" type="submit" [disabled]="isLoading() || isSaving()"
+          [nzLoading]="isSaving()">
+          {{ isCreateMode() ? 'Создать' : 'Сохранить' }}
+        </button>
+      </div>
+
+      @if (errorMessage()) {
+      <nz-alert nzType="error" [nzMessage]="errorMessage()" nzShowIcon />
+      }
+    </form>
+  </nz-spin>
+
+  <nz-modal [nzVisible]="isSuccessModalVisible()" [nzTitle]="successMessage()" nzClassName="rounded-modal" nzCentered
+    nzOkText="Закрыть" [nzCancelText]="null" (nzOnOk)="closeSuccessModal()" (nzOnCancel)="closeSuccessModal()">
+    <ng-container *nzModalContent>
+      @if (isCreateMode()) {
+      Пользователь успешно создан. Можно заполнить форму для следующего пользователя.
+      } @else {
+      Изменения сохранены.
+      }
+    </ng-container>
+  </nz-modal>
+</section>

@@ -1,0 +1,160 @@
+<section class="users-page">
+  <nz-page-header nzTitle="Список пользователей">
+    <nz-page-header-extra>
+      <button nz-button nzType="primary" class="users-page__create" routerLink="/users/new">
+        Создать пользователя
+      </button>
+    </nz-page-header-extra>
+  </nz-page-header>
+  <div class="filter-wrapper">
+    <form
+      nz-form
+      nzLayout="inline"
+      [formGroup]="filterForm"
+      (ngSubmit)="applyFilters()"
+      class="filter-form"
+    >
+      <nz-form-item class="filter-field--name">
+        <nz-form-label nzFor="name">Имя</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            id="name"
+            type="search"
+            placeholder="Например, Leanne"
+            formControlName="name"
+          />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item class="filter-field--email">
+        <nz-form-label nzFor="email">Email</nz-form-label>
+        <nz-form-control>
+          <input
+            nz-input
+            id="email"
+            type="search"
+            placeholder="Например, biz"
+            formControlName="email"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="filter-action--search">
+        <nz-form-control>
+          <button nz-button nzType="primary" type="submit" [disabled]="isLoading()">Найти</button>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="filter-action--reset">
+        <nz-form-control>
+          <button nz-button type="button" [disabled]="isLoading()" (click)="resetFilters()">
+            Сбросить
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  @if (errorMessage()) {
+    <nz-alert nzType="error" [nzMessage]="errorMessage()" nzShowIcon />
+  }
+
+  <nz-spin [nzSpinning]="isLoading()">
+    @if (!isLoading() && users().length === 0 && !errorMessage()) {
+      <nz-empty nzNotFoundContent="Пользователи не найдены" />
+    } @else if (!errorMessage()) {
+      <div class="users-list">
+        <div nz-row class="users-list__header">
+          <div nz-col [nzXs]="24" [nzMd]="4"><strong>Имя</strong></div>
+          <div nz-col [nzXs]="24" [nzMd]="3"><strong>Username</strong></div>
+          <div nz-col [nzXs]="24" [nzMd]="7"><strong>Email</strong></div>
+          <div nz-col [nzXs]="24" [nzMd]="5"><strong>Телефон</strong></div>
+          <div nz-col [nzXs]="24" [nzMd]="3"><strong>Город</strong></div>
+          <div nz-col [nzXs]="24" [nzMd]="2"></div>
+        </div>
+
+        @for (user of users(); track user.id) {
+          <div
+            nz-row
+            class="users-list__item"
+            role="button"
+            tabindex="0"
+            [routerLink]="['/users', user.id]"
+            (keydown.enter)="openUser(user)"
+            (keydown.space)="openUser(user); $event.preventDefault()"
+          >
+            <div nz-col [nzXs]="12" [nzMd]="4" class="users-list__field users-list__field--name">
+              <span>{{ user.name }}</span>
+            </div>
+            <div
+              nz-col
+              [nzXs]="12"
+              [nzMd]="3"
+              class="users-list__field users-list__field--username"
+            >
+              <span>{{ user.username }}</span>
+            </div>
+            <div nz-col [nzXs]="12" [nzMd]="7" class="users-list__field">
+              <span
+                class="users-list__label"
+                nz-icon
+                nzType="mail"
+                nzTheme="outline"
+                aria-label="Email"
+              ></span>
+              <span>{{ user.email }}</span>
+            </div>
+            <div nz-col [nzXs]="12" [nzMd]="5" class="users-list__field">
+              <span
+                class="users-list__label"
+                nz-icon
+                nzType="phone"
+                nzTheme="outline"
+                aria-label="Телефон"
+              ></span>
+              <span>{{ user.phone }}</span>
+            </div>
+            <div nz-col [nzXs]="24" [nzMd]="3" class="users-list__field">
+              <span
+                class="users-list__label"
+                nz-icon
+                nzType="environment"
+                nzTheme="outline"
+                aria-label="Город"
+              ></span>
+              <span>{{ user.address.city }}</span>
+            </div>
+            <div nz-col [nzXs]="24" [nzMd]="2" class="users-list__actions">
+              <button
+                nz-button
+                nzShape="circle"
+                type="button"
+                class="users-list__edit"
+                aria-label="Редактировать пользователя"
+                [routerLink]="['/users', user.id, 'edit']"
+                (click)="$event.stopPropagation()"
+              >
+                <span nz-icon nzType="edit" nzTheme="outline"></span>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </nz-spin>
+
+  <div class="users-pagination">
+    <nz-pagination
+      [nzPageIndex]="currentPage()"
+      [nzTotal]="totalCount()"
+      [nzPageSize]="limit()"
+      [nzPageSizeOptions]="limitOptions"
+      [nzDisabled]="isLoading()"
+      [nzShowTotal]="totalTemplate"
+      nzResponsive
+      nzShowSizeChanger
+      (nzPageIndexChange)="changePage($event)"
+      (nzPageSizeChange)="changeLimit($event)"
+    />
+  </div>
+
+  <ng-template #totalTemplate let-total>Всего: {{ total }}</ng-template>
+</section>
