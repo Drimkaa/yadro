@@ -1,4 +1,4 @@
-# Тестовое Angular-приложение для работы со списком пользователей.
+# Тестовое Angular-приложение для работы со списком пользователей
 
 [Открыть демо на GitHub Pages](https://drimkaa.github.io/yadro/)
 
@@ -29,10 +29,29 @@
 https://jsonplaceholder.typicode.com/users
 ```
 
-## Локальный запуск
+## Установка и запуск
+
+Склонировать репозиторий:
+
+```bash
+git clone git@github.com:Drimkaa/yadro.git
+```
+
+Перейти в папку проекта:
+
+```bash
+cd yadro
+```
+
+Установить зависимости:
 
 ```bash
 npm i
+```
+
+Запустить проект в режиме разработки:
+
+```bash
 npm start
 ```
 
@@ -42,30 +61,45 @@ npm start
 http://localhost:4200/
 ```
 
-## Сборка
+## Запуск собранной SSR-версии
+
+Сначала нужно выполнить сборку:
 
 ```bash
 npm run build
 ```
 
-создается в:
+Результат сборки создается в папке:
 
 ```text
 dist/yadro
 ```
-
-## Запуск после сборки 
-
-
-
-Запустить собранную  версию:
+Затем запустить собранную серверную версию:
 
 ```bash
 npm run serve:ssr:yadro
 ```
 
-Приложение будет доступно по адресу:
+После запуска приложение будет доступно по адресу:
 
 ```text
 http://localhost:4000/
 ```
+
+## Деплой на GitHub Pages
+
+Сохранить изменения в репозитории:
+
+```bash
+git status
+git add .
+git commit -m "Update project"
+git push origin master
+```
+
+Опубликовать приложение на GitHub Pages:
+
+```bash
+ng deploy --base-href=/yadro/
+```
+
