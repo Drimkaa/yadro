@@ -1,59 +1,71 @@
-# Yadro
+# Тестовое Angular-приложение для работы со списком пользователей.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+[Открыть демо на GitHub Pages](https://drimkaa.github.io/yadro/)
 
-## Development server
+## Возможности
 
-To start a local development server, run:
+- просмотр списка пользователей;
+- пагинация и выбор количества пользователей на странице;
+- фильтрация по имени и email;
+- просмотр страницы пользователя;
+- создание и редактирование пользователя;
+- удаление пользователя с подтверждением;
+- синхронизация фильтров и пагинации с query-параметрами;
+- адаптивный интерфейс с использованием ng-zorro.
 
-```bash
-ng serve
+## API
+
+Проект использует JSONPlaceholder:
+
+- `GET /users`
+- `GET /users/{id}`
+- `POST /users`
+- `PUT /users/{id}`
+- `DELETE /users/{id}`
+
+Базовый URL:
+
+```text
+https://jsonplaceholder.typicode.com/users
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Локальный запуск
 
 ```bash
-ng generate component component-name
+npm i
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+После запуска приложение будет доступно по адресу:
+
+```text
+http://localhost:4200/
+```
+
+## Сборка
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
+создается в:
 
-To build the project run:
+```text
+dist/yadro
+```
+
+## Запуск после сборки 
+
+
+
+Запустить собранную  версию:
 
 ```bash
-ng build
+npm run serve:ssr:yadro
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Приложение будет доступно по адресу:
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
+```text
+http://localhost:4000/
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
