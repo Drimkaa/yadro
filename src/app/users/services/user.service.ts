@@ -27,7 +27,6 @@ export class UserService {
   getUsers(params: UserListParams = {}): Observable<UserListResult> {
     // так как GET https://jsonplaceholder.typicode.com/users возвращает массив объектов 
     // без указания totalPage или totalCount, используем 2 запроса
-    // это больше похоже на костыль =)
     // первый запрос для получения отфильтрованных пользователей учитывая лимиты пагинации
     // второй запрос для определения количества отфильтр. пользователей, без учета пагинации
     return forkJoin({
